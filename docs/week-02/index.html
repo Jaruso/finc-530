@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="FINC-530 Week 2: Time Series Analysis."><title>Week 2 · Time Series Analysis | FINC-530</title><link rel="stylesheet" href="../assets/styles.css"></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="FINC-530 Week 2: TitanHelix time series forecasting with moving averages, ARIMA, and SARIMA.">
+<title>Week 2 · Time Series Analysis | FINC-530</title>
+<link rel="stylesheet" href="../assets/styles.css">
+<style>
+.chart-frame{background:#fff;border:1px solid var(--line);border-radius:10px;padding:15px 16px 9px;margin:18px 0 7px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:10px 20px;align-items:center;justify-content:center;padding:3px 0 8px;color:var(--muted);font-size:.75rem}
+.chart-legend span{display:inline-flex;align-items:center;gap:7px}.chart-legend i{display:inline-block;width:18px;height:3px;border-radius:2px}
+.accuracy-row{display:grid;grid-template-columns:125px 1fr 63px;gap:10px;align-items:center;margin:13px 0;font-size:.78rem}.accuracy-track{height:13px;background:#ebf0f1;border-radius:4px;overflow:hidden}.accuracy-fill{height:100%;background:#9fb5b8;border-radius:4px}.accuracy-fill.best{background:var(--teal)}.accuracy-row strong{text-align:right;font-variant-numeric:tabular-nums}
+.metric-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:20px 0}.metric{padding:14px 16px;border-radius:9px;background:var(--soft2);border:1px solid var(--line)}.metric strong{display:block;font-size:1.24rem;line-height:1.45}.metric span{font-size:.73rem;color:var(--muted)}
+.chart-note{font-size:.78rem;color:var(--muted)!important;margin:3px 0 24px!important}
+@media(max-width:600px){.accuracy-row{grid-template-columns:99px 1fr 57px;gap:7px;font-size:.7rem}.metric-strip{gap:6px}.metric{padding:10px 7px}.metric strong{font-size:1rem}.metric span{font-size:.65rem}.chart-frame{padding:10px 7px}}
+</style>
+</head>
 <body>
-<header class="site-header"><a class="brand" href="../">FINC<span>—530</span></a><span class="context">Week 2 · Course portfolio</span></header>
-<main class="container"><nav class="breadcrumb"><a href="../">← All weeks</a> / Week 2</nav>
-<section class="article-hero"><div class="eyebrow">Week 02 · FINC-530</div><h1>Time Series Analysis</h1><p>Moving averages, ARIMA, and seasonality</p></section>
-<section class="placeholder"><div class="eyebrow">Page prepared</div><h2>Findings and workbook coming next</h2><p>This page will present the TitanHelix product-sales forecast, comparisons between moving averages and ARIMA, and the Excel workbook used for the assignment.</p><p>The page will be updated with actual coursework rather than placeholder findings or example results.</p><a href="../" class="button secondary">← Return to all weeks</a></section>
+<header class="site-header"><a class="brand" href="../">FINC<span>—530</span></a><span class="context">Week 2 · Time Series Analysis</span></header>
+<main class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../">← All weeks</a> / Week 2</nav>
+<section class="article-hero">
+<div class="eyebrow">Week 02 · Forecasting Techniques</div>
+<h1>Time Series Analysis</h1>
+<p>Forecasting monthly sales for TitanHelix's THX-101 therapy using moving averages, ARIMA, and seasonal ARIMA. The complete Week 1 model remains in the same workbook, with one new Time Series Analysis worksheet.</p>
+<div class="action-row"><a class="button" href="./TitanHelix%20Week%202.xlsx" download="TitanHelix Week 2.xlsx">↓ Download Week 2 Excel workbook</a></div>
+<p class="note">The download points to <code>docs/week-02/TitanHelix Week 2.xlsx</code>. The workbook must be committed at that path before the download works.</p>
+</section>
+<section class="stats">
+<div class="stat"><div class="number">33</div><div class="label">Monthly historical observations</div></div>
+<div class="stat"><div class="number">6</div><div class="label">Months held out for testing</div></div>
+<div class="stat"><div class="number">12</div><div class="label">Months forecast ahead</div></div>
+</section>
+<div class="content-grid">
+<article class="article">
+<h2>Objective</h2>
+<p>I used monthly THX-101 product sales from the existing TitanHelix financial model to test which forecasting methods best captured the company's rapid commercialization. The data is entirely synthetic, based on the Week 1 workbook—not real-world observed drug sales.</p>
+<p>Each model was trained on January 2024 through March 2026, then tested against six months of withheld sales (April–September 2026). After comparing the holdout errors, I produced forecasts for October 2026 through September 2027.</p>
+<h2>Historical Sales vs. Forecast</h2>
+<div class="chart-frame"><svg viewBox="0 0 830 318" role="img" aria-labelledby="sales-title sales-desc" style="width:100%;height:auto"><title id="sales-title">THX-101 historical monthly revenue and 12-month forecast</title><desc id="sales-desc">Monthly historical revenue grows from $0.82 million in January 2024 to $9.86 million in September 2026. ARIMA with drift forecasts $13.26 million by September 2027, compared with the original Week 1 management plan of $12.92 million.</desc><line x1="57" x2="797" y1="270" y2="270" stroke="#e2e9e9"/><text x="43" y="274" text-anchor="end" fill="#6c7984" font-size="12">0</text><line x1="57" x2="797" y1="190" y2="190" stroke="#e2e9e9"/><text x="43" y="194" text-anchor="end" fill="#6c7984" font-size="12">5</text><line x1="57" x2="797" y1="110" y2="110" stroke="#e2e9e9"/><text x="43" y="114" text-anchor="end" fill="#6c7984" font-size="12">10</text><line x1="57" x2="797" y1="30" y2="30" stroke="#e2e9e9"/><text x="43" y="34" text-anchor="end" fill="#6c7984" font-size="12">15</text><line x1="595.1818181818181" x2="595.1818181818181" y1="22" y2="270" stroke="#9fb2b7" stroke-dasharray="5 5"/><text x="589.1818181818181" y="18" text-anchor="end" fill="#6b7d87" font-size="11">Forecast begins</text><polyline points="57.0,257.0 73.8,254.7 90.6,252.3 107.5,249.8 124.3,247.1 141.1,244.2 157.9,241.2 174.7,238.1 191.5,234.8 208.4,227.0 225.2,223.0 242.0,218.9 258.8,204.2 275.6,200.9 292.5,197.6 309.3,194.3 326.1,191.0 342.9,187.7 359.7,184.4 376.5,181.1 393.4,177.8 410.2,164.0 427.0,160.3 443.8,156.6 460.6,155.9 477.5,152.8 494.3,146.8 511.1,141.2 527.9,134.6 544.7,132.9 561.5,124.1 578.4,118.8 595.2,112.2" fill="none" stroke="#0b7f73" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><polyline points="595.2,112.2 612.0,107.7 628.8,103.1 645.6,98.6 662.5,94.1 679.3,89.6 696.1,85.0 712.9,80.5 729.7,76.0 746.5,71.5 763.4,66.9 780.2,62.4 797.0,57.9" fill="none" stroke="#314b5c" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><polyline points="595.2,112.2 612.0,111.3 628.8,105.9 645.6,100.2 662.5,96.5 679.3,92.6 696.1,88.7 712.9,84.7 729.7,80.6 746.5,76.4 763.4,72.1 780.2,67.8 797.0,63.3" fill="none" stroke="#b48a4f" stroke-width="2.3" stroke-dasharray="6 5" stroke-linejoin="round"/><circle cx="595.1818181818181" cy="112.17599999999999" r="4.3" fill="#0b7f73" stroke="#fff" stroke-width="1.5"/><circle cx="796.9999999999999" cy="57.884848000000005" r="4.2" fill="#314b5c"/><text x="791.9999999999999" y="47.884848000000005" text-anchor="end" font-size="13" font-weight="700" fill="#314b5c">$13.26M</text><text x="57" y="294" text-anchor="middle" fill="#6c7984" font-size="12">Jan '24</text><text x="258.8181818181818" y="294" text-anchor="middle" fill="#6c7984" font-size="12">Jan '25</text><text x="460.6363636363636" y="294" text-anchor="middle" fill="#6c7984" font-size="12">Jan '26</text><text x="595.1818181818181" y="294" text-anchor="middle" fill="#6c7984" font-size="12">Sep '26</text><text x="796.9999999999999" y="294" text-anchor="middle" fill="#6c7984" font-size="12">Sep '27</text><text x="57" y="12" fill="#6c7984" font-size="11">Monthly sales ($ millions)</text></svg><div class="chart-legend"><span><i style="background:#0b7f73"></i> Historical</span><span><i style="background:#314b5c"></i> ARIMA forecast</span><span><i style="background:#b48a4f"></i> Week 1 plan</span></div></div>
+<p class="chart-note">ARIMA (0,1,0) with drift projects September 2027 monthly sales of $13.26 million, compared with $12.92 million in the original Week 1 management plan. Charts display outputs from the submitted workbook; the site does not re-estimate the models.</p>
+<h2>What the model comparison tells us</h2>
+<p>The moving averages consistently lag the growth in THX-101 sales. A shorter three-month window responds faster than six- or twelve-month windows, but its forecast error is still substantially higher than ARIMA's.</p>
+<p>The nonseasonal <strong>ARIMA (0,1,0) with drift</strong> produced the most accurate six-month holdout forecast at <strong>3.15% MAPE</strong>, versus <strong>8.25%</strong> for the tested seasonal ARIMA specification. Adding an annual seasonal term did not improve this dataset's forecast accuracy.</p>
+<h2>Limitations and Business Use</h2>
+<p>With only 33 months of synthetic history, there is limited evidence of a stable annual seasonal pattern. A statistical trend also cannot anticipate changes in regulatory approvals, insurance coverage, supply capacity, or competitive conditions.</p>
+<p>The practical value is as a benchmark against the original Week 1 revenue assumptions. TitanHelix could use the differences to examine inventory requirements, licensing royalties, manufacturing capacity, and funding needs without treating one forecast as a guaranteed outcome.</p>
+<p class="chart-note">Methods and results are documented in the workbook's <strong>Time Series Analysis</strong> worksheet. The remaining original statements and supporting schedules are preserved in the file.</p>
+</article>
+<aside class="side">
+<div class="side-panel">
+<div class="eyebrow">Six-month backtest</div><h3>Forecast accuracy</h3>
+<p>Mean absolute percentage error (MAPE). Lower is better.</p>
+<div role="img" aria-label="Forecast errors: ARIMA with drift 3.15%, SARIMA 8.25%, three-month simple moving average 16.80%, six-month simple moving average 19.78%, twelve-month simple moving average 30.34%."><div class="accuracy-row"><div class="accuracy-name">ARIMA + drift</div><div class="accuracy-track"><div class="accuracy-fill best" style="width:10.16%"></div></div><strong>3.15%</strong></div>
+<div class="accuracy-row"><div class="accuracy-name">SARIMA, annual lag</div><div class="accuracy-track"><div class="accuracy-fill " style="width:26.62%"></div></div><strong>8.25%</strong></div>
+<div class="accuracy-row"><div class="accuracy-name">SMA, 3 months</div><div class="accuracy-track"><div class="accuracy-fill " style="width:54.20%"></div></div><strong>16.80%</strong></div>
+<div class="accuracy-row"><div class="accuracy-name">SMA, 6 months</div><div class="accuracy-track"><div class="accuracy-fill " style="width:63.81%"></div></div><strong>19.78%</strong></div>
+<div class="accuracy-row"><div class="accuracy-name">SMA, 12 months</div><div class="accuracy-track"><div class="accuracy-fill " style="width:97.86%"></div></div><strong>30.34%</strong></div></div>
+<p class="mini">Models compared using the same April–September 2026 test period.</p>
+</div>
+<div class="side-panel"><div class="eyebrow">Selected results</div><h3>September 2027 sales</h3>
+<div class="metric-strip" style="grid-template-columns:1fr"><div class="metric"><strong>$13.26M</strong><span>ARIMA projected monthly sales</span></div><div class="metric"><strong>$12.92M</strong><span>Week 1 management plan</span></div></div>
+<p>Forecasts are monthly THX-101 revenue, not total TitanHelix revenue.</p>
+</div>
+<div class="side-panel"><h3>Workbook contents</h3><p>All original Week 1 financial statements and operating schedules, plus the new time-series sheet containing backtest results, model comparisons, and projected sales.</p></div>
+</aside>
+</div>
 </main>
-<footer class="site-footer"><div class="container footer-row"><span>FINC-530 · Educational project · Synthetic company data</span><a href="https://github.com/Jaruso/finc-530">View source on GitHub</a></div></footer></body></html>
+<footer class="site-footer"><div class="container footer-row"><span>FINC-530 · Synthetic educational data</span><a href="../">All course weeks →</a></div></footer>
+</body></html>
