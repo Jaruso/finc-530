@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Week 1 company profile and financial-modeling approach for TitanHelix Therapeutics.">
+<title>Week 1 · TitanHelix Therapeutics | FINC-530</title>
+<link rel="stylesheet" href="../assets/styles.css"></head>
+<body>
+<header class="site-header"><a class="brand" href="../">FINC<span>—530</span></a><span class="context">Week 1 · Foundations</span></header>
+<main class="container">
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="../">← All weeks</a> / Week 1</nav>
+<section class="article-hero">
+<div class="eyebrow">Week 01 · Foundations of Financial Modeling</div>
+<h1>TitanHelix Therapeutics</h1>
+<p>A fictional U.S. biotechnology company building commercial revenue while funding the next generation of peptide-based therapies.</p>
+<div class="action-row">
+<a class="button" href="https://docs.google.com/spreadsheets/d/1pdgXaSMXq4eUkanAHWh4ZLEar5Prd0dPF3H0ItbEkDM/export?format=xlsx">↓ Download Excel workbook</a>
+<a class="button secondary" href="https://docs.google.com/spreadsheets/d/1pdgXaSMXq4eUkanAHWh4ZLEar5Prd0dPF3H0ItbEkDM/edit?usp=drivesdk">View original spreadsheet</a>
+</div>
+<p class="note">Workbook access currently requires permission to the original Google Sheet. The public site does not expose a separate workbook copy yet.</p>
+</section>
+<section class="stats" aria-label="Company at a glance">
+<div class="stat"><div class="number">2018</div><div class="label">Founded</div></div>
+<div class="stat"><div class="number">480</div><div class="label">Employees entering 2026</div></div>
+<div class="stat"><div class="number">180</div><div class="label">Months in model</div></div>
+</section>
+<div class="content-grid">
+<article class="article">
+<h2>Company Profile</h2>
+<p>TitanHelix Therapeutics is a U.S. biotechnology company developing performance-enhancing drugs designed to push the limits of human physical capability. Its peptide-based therapies target fat reduction, muscle growth and recovery, and bone regeneration, serving both athletes and individuals looking to improve their physical performance. Founded in 2018, the company enters 2026 with 480 employees. Alongside its peptide pipeline, it earns revenue from research services and collaborations while relying on private capital to fund development.</p>
+<div style="overflow-x:auto"><table class="data-table">
+<thead><tr><th>Product</th><th>Stage and treatment</th><th>Role in the dataset</th></tr></thead>
+<tbody>
+<tr><td>THX-101</td><td>Licensed GLP-1 therapy; commercial since 2024.</td><td>Models established product revenue, growth, and an 8% licensing royalty</td></tr>
+<tr><td>THX-202</td><td>Muscle-growth and preservation therapy; active R&amp;D, July 2027 target launch</td><td>Models clinical investment, launch timing, patient adoption, and manufacturing costs</td></tr>
+<tr><td>THX-303</td><td>Bone-growth research program; no sales projected through 2032</td><td>Models years of R&amp;D spending without revenue, and the resulting cash and funding needs</td></tr>
+</tbody></table></div>
+<blockquote><p>I'm not trying to build a unicorn company here. I want to model a realistic biotech navigating the valley of death: growing into a commercial business while its next generation of treatments still consumes cash. That creates difficult decisions about where to invest, when to raise capital, and whether staying private or pursuing an IPO offers the better path to financial stability.</p></blockquote>
+<h2>Dataset Design &amp; Integration</h2>
+<p>My engineering background shaped the workbook. I separate inputs, normalize them into a consistent data representation, and derive outputs from there. Five operating schedules feed Monthly Data, which drives the income statement, balance sheet, and cash flow statement:</p>
+<ul>
+<li><strong>Revenue &amp; Demand:</strong> prescriptions, research clients, licensing, and THX-202 patients.</li>
+<li><strong>Workforce &amp; Expenses:</strong> headcount, payroll, marketing, and overhead.</li>
+<li><strong>Manufacturing &amp; Production:</strong> unit costs, distribution, and royalties.</li>
+<li><strong>Clinical Trials &amp; R&amp;D:</strong> clinical sites, participants, vendors, and research staff.</li>
+<li><strong>Funding &amp; Cap:</strong> equity, debt, and financing scenarios.</li>
+</ul>
+<p>The 180-month dataset spans January 2018 through December 2032. With AI assistance, I built its operating history around company growth: revenue climbs from $49 million in 2024 to $94 million in 2025 as distribution expands. Research services are seasonal, while licensing income follows quarterly milestones. Records through September 2026 are fixed; forecasts begin in October.</p>
+<p>The statements stay connected: net income feeds retained earnings and operating cash flow, adjusted for noncash expenses and working capital. Capital spending affects cash and fixed assets; borrowing, repayments, and equity raises affect financing cash and the balance sheet. Ending cash reconciles to the cash flow statement. Editable forecast inputs use blue text on light-blue backgrounds. For example, moving THX-202's July 2027 launch date in Revenue &amp; Demand shifts patient revenue, manufacturing costs, and the transition to postapproval R&amp;D. Those changes flow through Monthly Data and all three statements.</p>
+<h2>Financial Assumptions &amp; Scenarios</h2>
+<p>THX-101 assumes 50% prescription growth in 2026, its third commercial year, slowing to 8% by 2032 as distribution matures. THX-202 starts with 4,000 patients and 2% monthly growth (about 27% annually) at $1,500 in blended net revenue per patient-month, with 70% assumed to be insured. That reflects gradual physician adoption and payer coverage, not guaranteed approval or reimbursement.</p>
+<p>Operating costs include clinical trials, manufacturing, marketing, royalties, and a growing workforce. Payroll carries a 40% employer cost load and 3% annual salary increases. Modeling these costs separately lets changes in demand, production, and staffing flow through the statements instead of disappearing into a single assumed profit margin.</p>
+<p>TitanHelix completed a $155 million Series D raise in 2026. The private-financing plan adds $200 million in 2027 and $225 million in 2028; alternatives include a $350 million IPO in 2028 or a $400 million IPO in 2029, each with 6% issuance costs. At the end of 2025, the company carried $97 million in venture debt, with no principal due in 2026, $15 million due annually from 2027 through 2032, and a final $7 million due in 2033. Even with the planned raises, cash runs short in 2031 and reaches a $159 million deficit by the end of 2032. With these projections in hand, TitanHelix's leadership must decide whether to raise additional capital, control spending, or adjust its growth plans to keep the company operating.</p>
+<h2>Challenges &amp; Limitations</h2>
+<p>The hardest part was managing the complexity of an interconnected workbook. Keeping the schedules consistent meant tracing formulas across tabs, validating results, and making sure the assumptions remained understandable. I think the spreadsheet gives us a strong foundation, but it also exposed its limits: business logic scattered across cells is hard to maintain, and the controls aren't always intuitive.</p>
+<p>Later in the course, I want to explore code-based modeling with reusable calculations, stronger validation, and simpler dials for comparing scenarios. For now, the spreadsheet keeps the assumptions visible and gives me a baseline to build on. The model does not yet assign probabilities to clinical failure, regulatory delays, or future access to financing. Those are exactly the kinds of uncertainties I want to model next.</p>
+</article>
+<aside class="side" aria-label="Week 1 visual summaries">
+<div class="side-panel">
+<div class="eyebrow">Revenue snapshot</div><h3>Commercial growth</h3>
+<p>Historical synthetic annual revenue, USD millions.</p>
+<div role="img" aria-label="Annual revenue rose from 49 million dollars in 2024 to 94 million dollars in 2025.">
+<div class="bar-row"><span>2024</span><div class="track"><div class="bar prev" style="width:52.1%"></div></div><span class="bar-label">$49M</span></div>
+<div class="bar-row"><span>2025</span><div class="track"><div class="bar" style="width:100%"></div></div><span class="bar-label">$94M</span></div>
+</div>
+<div class="mini">The figures are synthetic and follow the Week 1 company model.</div>
+</div>
+<div class="side-panel"><div class="eyebrow">Development pipeline</div><h3>Products &amp; milestones</h3>
+<div class="timeline">
+<div class="timeline-item"><strong>THX-101 · Commercial</strong><span>Revenue-generating since 2024</span></div>
+<div class="timeline-item"><strong>THX-202 · Active R&amp;D</strong><span>Conditional July 2027 target launch</span></div>
+<div class="timeline-item"><strong>THX-303 · Research</strong><span>Bone regeneration; no sales through 2032</span></div>
+</div>
+</div>
+<div class="side-panel"><h3>About the data</h3><p>TitanHelix is entirely fictional. Historical records and forecasts were constructed for financial modeling coursework.</p><p>Model dates: January 2018–December 2032. Fixed modeled records through September 2026; projected from October 2026.</p></div>
+</aside>
+</div>
+</main>
+<footer class="site-footer"><div class="container footer-row"><span>FINC-530 · Educational project · Synthetic data</span><a href="../">All course weeks →</a></div></footer>
+</body></html>
