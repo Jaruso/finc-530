@@ -52,7 +52,7 @@
 <div><strong>Operating drivers</strong> <span>· THX-101 sales convert to fills at the modeled price; research revenue implies client volumes</span></div>
 <div><strong>Financial statements</strong> <span>· Updated sales, manufacturing costs, related operating results, cash flow, and balance sheet</span></div>
 </div>
-<p>Both revenue streams preserve their synthetic historical results through September 2026. Each live comparison displays forecasts in whole dollars; changing either B control does not change the financial statements. Future THX-202 launches, clinical milestones, manufacturing unit costs, and financing terms are still explicitly modeled as operating scenarios—not misrepresented as estimates from the time-series models.</p>
+<p>Both revenue streams preserve their synthetic historical results through September 2026. Each live comparison displays forecasts in whole dollars; changing either B control does not change the financial statements. The THX-202 launch is <strong>off in the statistical baseline</strong>, since it has no historical sales and regulatory approval cannot be extrapolated from another product. Its optional launch, clinical milestones, manufacturing unit costs, and financing assumptions remain explicitly modeled what-if scenarios, not outputs from the Week 2 sales forecasting algorithms.</p>
 
 <h2>Data and evaluation</h2>
 <p>I used <strong>33 months each of synthetic THX-101 and research-services sales</strong> from January 2024 through September 2026. Each method was tested using a fixed forecast origin: the first 27 months (through March 2026) were used for training, while April–September 2026 was withheld for a six-month out-of-sample comparison. The forecast horizon runs from October 2026 through September 2027.</p>
@@ -78,6 +78,7 @@
 <p class="chart-note">The website illustrates ARIMA versus seasonal ARIMA using the workbook's calculated outputs. The live workbook chart and selectors in O6/O7 allow comparisons between any two methods. These are THX-101 product sales, not total company revenue.</p>
 
 <h2>Model selection: results differ by revenue stream</h2>
+<p>The base case uses the lowest six-month holdout MAPE for each historical sales series: <strong>ARIMA with drift for THX-101 (3.15%)</strong> and <strong>EMA 3M for research services (5.89%)</strong>. The comparison controls start with seasonal ARIMA for THX-101 and SMA 3M for research; any of the six methods can be chosen independently.</p>
 <p><strong>ARIMA(0,1,0) with drift</strong> recorded the lowest six-month holdout error, <strong>3.15% MAPE</strong> (RMSE $0.344 million). Its advantage makes sense: monthly sales increased steadily, so a model that extends the average historical monthly change tracks this dataset better than a moving average that lags behind the rising level.</p>
 <p>The twelve-month moving average performed particularly poorly on THX-101 (30.34% MAPE) because it averages much lower historical sales. But the same selection rule is not optimal for every part of the business. On research-services revenue, <strong>EMA 3M has the lowest tested error at 5.89% MAPE</strong>, while ARIMA with drift records <strong>13.98%</strong>. This is why the two streams now have separate method selectors and model-comparison tables.</p>
 
