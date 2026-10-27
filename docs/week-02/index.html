@@ -32,8 +32,8 @@
 <section class="article-hero">
 <div class="eyebrow">Week 02 · Time Series Analysis</div>
 <h1>Forecasting inside the financial model</h1>
-<p>Week 2 upgrades the existing TitanHelix financial model into a head-to-head forecasting tool. Select any two methods to compare THX-101 sales forecasts and backtest errors; Projection A also drives the linked financial statements.</p>
-<div class="action-row"><a class="button" href="./TitanHelix%20Week%202.xlsx" download="TitanHelix Week 2.xlsx">↓ Download Week 2 Excel workbook</a></div>
+<p>Week 2 upgrades TitanHelix's existing three-statement model with time-series forecasts for THX-101 and research services. Each revenue stream has independent A/B comparisons; its Projection A drives the linked financial statements.</p>
+<div class="action-row"><a class="button" href="https://docs.google.com/spreadsheets/d/1yDCIfWhfaUnFx5okhoGgCa_4GliBXWJYgfCBRInH-6I/edit">Open live Week 2 workbook →</a></div>
 </section>
 <section class="stats" aria-label="Analysis coverage">
 <div class="stat"><div class="number">33</div><div class="label">Historical months</div></div>
@@ -44,18 +44,18 @@
 <article class="article">
 <h2>Why integrate the forecast?</h2>
 <p>The original workbook projected THX-101 sales from management assumptions that we invented. Those assumptions can be useful for planning, but they are not an independently tested forecasting method. A more useful Week 2 comparison puts two statistical forecasts on equal footing against the same historical data.</p>
-<p>The workbook now has <strong>Projection A in Revenue &amp; Demand!O6</strong> and <strong>Projection B in O7</strong>. Either can select SMA (3, 6, or 12 months), EMA, ARIMA with drift, or seasonal ARIMA. A changes future sales and financial statements; B is comparison only. The legacy management assumptions remain archived for audit but are no longer a selectable baseline.</p>
+<p>I removed the old THX-101 annual-growth forecast and research-client-growth formulas rather than simply hiding the management option. There are now <strong>two independent comparison pairs</strong> in Revenue &amp; Demand: <strong>THX-101 A/B in O6/O7</strong> and <strong>research revenue A/B in O37/Q37</strong>. Each method selector offers SMA (3, 6, or 12 months), EMA, ARIMA with drift, or a seasonal alternative. Projection A from each pair drives the corresponding revenue stream; B is a comparison only.</p>
 <div class="method-chips" aria-label="Forecast methods"><span>Compare any two methods</span><span>SMA 3M / 6M / 12M</span><span>EMA 3M</span><span>ARIMA + drift</span><span>Seasonal ARIMA</span></div>
 <div class="how-it-works" aria-label="Forecast integration">
 <div><strong>Historical product sales</strong> <span>· Fixed January 2024–September 2026 observations</span></div>
-<div><strong>Projection A</strong> <span>· Drives the forecast feeding the financial statements</span></div><div><strong>Projection B</strong> <span>· Selects an independent comparison forecast</span></div>
-<div><strong>Operating drivers</strong> <span>· Revenue converted to prescription fills using the modeled net price</span></div>
+<div><strong>Projection A, by revenue stream</strong> <span>· Drives THX-101 sales and research revenue separately</span></div><div><strong>Projection B, by revenue stream</strong> <span>· Provides a separate comparison without changing the statements</span></div>
+<div><strong>Operating drivers</strong> <span>· THX-101 sales convert to fills at the modeled price; research revenue implies client volumes</span></div>
 <div><strong>Financial statements</strong> <span>· Updated sales, manufacturing costs, related operating results, cash flow, and balance sheet</span></div>
 </div>
-<p>Both methods preserve the historical data through September 2026. The live comparison shows monthly forecasts, their difference, and each method's holdout error. Changing B alone leaves the company's financial statements untouched.</p>
+<p>Both revenue streams preserve their synthetic historical results through September 2026. Each live comparison displays forecasts in whole dollars; changing either B control does not change the financial statements. Future THX-202 launches, clinical milestones, manufacturing unit costs, and financing terms are still explicitly modeled as operating scenarios—not misrepresented as estimates from the time-series models.</p>
 
 <h2>Data and evaluation</h2>
-<p>I used <strong>33 months of synthetic THX-101 product sales</strong> from January 2024 through September 2026. Each method was tested using a fixed forecast origin: the first 27 months (through March 2026) were used for training, while April–September 2026 was withheld for a six-month out-of-sample comparison. The forecast horizon runs from October 2026 through September 2027.</p>
+<p>I used <strong>33 months each of synthetic THX-101 and research-services sales</strong> from January 2024 through September 2026. Each method was tested using a fixed forecast origin: the first 27 months (through March 2026) were used for training, while April–September 2026 was withheld for a six-month out-of-sample comparison. The forecast horizon runs from October 2026 through September 2027.</p>
 <p>For a fair comparison, I evaluated all methods against those same six withheld observations using <strong>mean absolute percentage error (MAPE)</strong> and <strong>root mean squared error (RMSE)</strong>. MAPE gives the proportional forecasting error; RMSE expresses error in millions of dollars and penalizes larger misses.</p>
 
 <h2>Historical sales and projected revenue</h2>
@@ -77,19 +77,19 @@
 <div class="legend"><span><i style="background:#0b7f73"></i>Historical sales</span><span><i style="background:#314b5c"></i>ARIMA + drift</span><span><i style="background:#829eae"></i>Seasonal ARIMA</span></div></div>
 <p class="chart-note">The website illustrates ARIMA versus seasonal ARIMA using the workbook's calculated outputs. The live workbook chart and selectors in O6/O7 allow comparisons between any two methods. These are THX-101 product sales, not total company revenue.</p>
 
-<h2>Model selection: what performed best?</h2>
+<h2>Model selection: results differ by revenue stream</h2>
 <p><strong>ARIMA(0,1,0) with drift</strong> recorded the lowest six-month holdout error, <strong>3.15% MAPE</strong> (RMSE $0.344 million). Its advantage makes sense: monthly sales increased steadily, so a model that extends the average historical monthly change tracks this dataset better than a moving average that lags behind the rising level.</p>
-<p>The twelve-month moving average performed particularly poorly (30.34% MAPE) because it averages months with much lower sales and cannot anticipate that the commercialization ramp will continue. That's a limitation of the chosen forecast method for an increasing trend, not proof that moving averages are generally unreliable.</p>
+<p>The twelve-month moving average performed particularly poorly on THX-101 (30.34% MAPE) because it averages much lower historical sales. But the same selection rule is not optimal for every part of the business. On research-services revenue, <strong>EMA 3M has the lowest tested error at 5.89% MAPE</strong>, while ARIMA with drift records <strong>13.98%</strong>. This is why the two streams now have separate method selectors and model-comparison tables.</p>
 
 <h2>Stationarity and seasonality</h2>
 <p>The level series trends upward. An earlier Augmented Dickey–Fuller diagnostic returned a level-series p-value near <strong>0.945</strong>; after first differencing, the p-value was approximately <strong>0.057</strong>, still slightly above the conventional 5% threshold. I therefore treated first differencing as a practical specification and reviewed ACF/PACF diagnostics on the monthly changes.</p>
-<p>The differenced series showed a lag-12 correlation close to zero, so there isn't strong independent evidence of a repeating annual pattern. I tested a seasonal alternative anyway, using a lag-12 relationship fitted to the differenced observations. Its <strong>3.58% MAPE</strong> was close to ARIMA's, but did not improve the six-month test result. With fewer than three annual cycles, I would not treat that as a reliable seasonal effect.</p>
+<p>For THX-101, the differenced series had a lag-12 correlation near zero. Its seasonal model achieved <strong>3.58% MAPE</strong>, close to but higher than the 3.15% nonseasonal result. Research-services seasonality was less stable: the unconstrained seasonal autoregression coefficient exceeded 1, causing implausible long-horizon growth. I capped that coefficient at ±0.90 for a provisional comparison; even then it did not beat EMA (research seasonal MAPE: <strong>11.21%</strong>). These are short synthetic series, not strong evidence of stable annual seasonality.</p>
 
 <h2>Business interpretation and limitations</h2>
 <p>In one example comparison for September 2027, ARIMA with drift projects <strong>$13,257,197</strong> in THX-101 monthly sales and seasonal ARIMA projects <strong>$13,322,605</strong>. Selecting different methods allows us to quantify changes in demand, manufacturing requirements, cash flow, and future financing needs.</p>
-<p>I verified that changing Projection B only updates the comparison, while Projection A changes forecast sales and the linked model. Historical synthetic observations stay unchanged.</p>
+<p>I tested each independent research selector: changing research Projection B altered only the comparison, while changing research Projection A changed research revenue and retained zero balance-sheet and cash-flow reconciliation differences in the checked periods. I performed the corresponding link test for THX-101 as well. Historical synthetic observations stay unchanged.</p>
 <p>The main limitation is that <strong>the history itself is synthetic and follows assumptions we originally designed</strong>. ARIMA's 3.15% is a six-month holdout MAPE on that constructed series—not a claim of 96.85% real-world accuracy, nor a validated error rate for future sales. Regulatory outcomes, reimbursement, supply constraints, and competition can change revenue in ways that an extrapolation cannot predict.</p>
-<p class="chart-note">Implementation note: the selectable forecasts use native spreadsheet formulas, not VBA. The nonseasonal model applies first differences and historical drift; the seasonal alternative uses a conditional least-squares lag-12 relationship rather than a full iterative maximum-likelihood fit. ADF p-values were retained from the earlier diagnostic run and are not live spreadsheet recalculations.</p>
+<p class="chart-note">Implementation note: the workbook uses spreadsheet formulas, not VBA. Moving averages, EMA, and ARIMA(0,1,0) with drift recalculate from each revenue stream's history. The seasonal alternatives use a conditional lag-12 approximation, not a full maximum-likelihood SARIMA fit; the research-series coefficient is bounded for stability. THX-101 ADF p-values are archived diagnostic snapshots, not live recalculations. Clinical approvals and financing schedules remain business scenarios because no suitable realized history exists for a statistical sales forecast.</p>
 </article>
 <aside class="side">
 <div class="side-panel">
@@ -115,9 +115,10 @@
 </div>
 <p>Use the difference as a planning sensitivity, not a guarantee.</p>
 </div>
+<div class="side-panel"><h3>Research services result</h3><p>Six-month holdout MAPE:</p><div class="metric-strip" style="grid-template-columns:1fr"><div class="metric"><strong>5.89%</strong><span>EMA (best in research backtest)</span></div><div class="metric"><strong>13.98%</strong><span>ARIMA with drift (research backtest)</span></div></div><p>Compare independently of THX-101; the test data favors a different method.</p></div>
 <div class="side-panel">
 <h3>Workbook navigation</h3>
-<p>Open <strong>Revenue &amp; Demand</strong>. Choose <strong>Projection A in O6</strong> and <strong>Projection B in O7</strong>. Compare their whole-dollar sales projections, holdout MAPE, and lines on the live chart. Only A changes the integrated financial statements.</p>
+<p>Open <strong>Revenue &amp; Demand</strong>. For <strong>THX-101</strong>, select A/B in <strong>O6/O7</strong>. For <strong>research services</strong>, use <strong>O37/Q37</strong>. Compare projected dollars in the live summaries, test errors in the separate six-month backtest tables, and historical/forecast lines on the two charts. Each A selection affects the corresponding revenue and connected statements; the B selections do not.</p>
 </div>
 </aside>
 </div>
