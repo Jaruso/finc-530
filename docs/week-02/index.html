@@ -44,7 +44,7 @@
 <article class="article">
 <h2>Why integrate the forecast?</h2>
 <p>The original workbook projected THX-101 sales from management assumptions that we invented. Those assumptions can be useful for planning, but they are not an independently tested forecasting method. A more useful Week 2 comparison puts two statistical forecasts on equal footing against the same historical data.</p>
-<p>I removed the old THX-101 annual-growth forecast and research-client-growth formulas rather than simply hiding the management option. There are now <strong>two independent comparison pairs</strong> in Revenue &amp; Demand: <strong>THX-101 A/B in O6/O7</strong> and <strong>research revenue A/B in O37/Q37</strong>. Each method selector offers SMA (3, 6, or 12 months), EMA, ARIMA with drift, or a seasonal alternative. Projection A from each pair drives the corresponding revenue stream; B is a comparison only.</p>
+<p>I removed the old THX-101 annual-growth forecast and research-client-growth formulas rather than simply hiding the management option. There are now <strong>two independent comparison pairs</strong> in Revenue &amp; Demand: <strong>THX-101 A/B in O6/O7</strong> and <strong>research revenue A/B in O17/Q17</strong>. All calculation matrices, six-month backtests, seasonality diagnostics, and charts live on a separate <strong>Forecast Analysis</strong> worksheet, keeping the operating model readable. Each method selector offers SMA (3, 6, or 12 months), EMA, ARIMA with drift, or a seasonal alternative. Projection A from each pair drives the corresponding revenue stream; B is a comparison only.</p>
 <div class="method-chips" aria-label="Forecast methods"><span>Compare any two methods</span><span>SMA 3M / 6M / 12M</span><span>EMA 3M</span><span>ARIMA + drift</span><span>Seasonal ARIMA</span></div>
 <div class="how-it-works" aria-label="Forecast integration">
 <div><strong>Historical product sales</strong> <span>· Fixed January 2024–September 2026 observations</span></div>
@@ -120,7 +120,7 @@
 <div class="side-panel"><h3>Research services result</h3><p>Six-month holdout MAPE:</p><div class="metric-strip" style="grid-template-columns:1fr"><div class="metric"><strong>5.89%</strong><span>EMA (best in research backtest)</span></div><div class="metric"><strong>13.98%</strong><span>ARIMA with drift (research backtest)</span></div></div><p>Compare independently of THX-101; the test data favors a different method.</p></div>
 <div class="side-panel">
 <h3>Workbook navigation</h3>
-<p>Open <strong>Revenue &amp; Demand</strong>. For <strong>THX-101</strong>, select A/B in <strong>O6/O7</strong>. For <strong>research services</strong>, use <strong>O37/Q37</strong>. Compare projected dollars in the live summaries, test errors in the separate six-month backtest tables, and historical/forecast lines on the two charts. Each A selection affects the corresponding revenue and connected statements; the B selections do not.</p>
+<p>Open <strong>Revenue &amp; Demand</strong> for the operating schedule and selectors: THX-101 A/B in <strong>O6/O7</strong>, research A/B in <strong>O17/Q17</strong>. The compact summaries compare forecast dollars and holdout errors. Open the separate <strong>Forecast Analysis</strong> tab for full monthly model series, comparative accuracy, ACF/PACF diagnostics, and three charts located below the tables. Each A selection affects its linked revenue and financial statements; B is comparison-only.</p>
 </div>
 </aside>
 </div>
