@@ -32,7 +32,7 @@
 <section class="article-hero">
 <div class="eyebrow">Week 02 · Time Series Analysis</div>
 <h1>Forecasting inside the financial model</h1>
-<p>Rather than build a separate forecasting exercise, I added the techniques from Week 2 directly to TitanHelix's existing financial model. The result is a selectable sales forecast that flows through the same operating schedules and financial statements we built in Week 1.</p>
+<p>Week 2 upgrades the existing TitanHelix financial model into a head-to-head forecasting tool. Select any two methods to compare THX-101 sales forecasts and backtest errors; Projection A also drives the linked financial statements.</p>
 <div class="action-row"><a class="button" href="./TitanHelix%20Week%202.xlsx" download="TitanHelix Week 2.xlsx">↓ Download Week 2 Excel workbook</a></div>
 </section>
 <section class="stats" aria-label="Analysis coverage">
@@ -43,16 +43,16 @@
 <div class="content-grid">
 <article class="article">
 <h2>Why integrate the forecast?</h2>
-<p>The Week 1 workbook already projected THX-101 sales from management assumptions about prescription growth and pricing. Building another isolated series would show which model fits the data, but it wouldn't tell us what happens to the business when that forecast changes.</p>
-<p>I kept the original assumptions as the default and added a <strong>forecast-method selector in Revenue &amp; Demand (cell O6)</strong>. It offers management projections alongside three simple moving averages, a three-month exponential moving average, ARIMA with drift, and a seasonal ARIMA alternative. The separate time-series worksheet was removed.</p>
-<div class="method-chips" aria-label="Forecast methods"><span>Management</span><span>SMA 3M / 6M / 12M</span><span>EMA 3M</span><span>ARIMA + drift</span><span>Seasonal ARIMA</span></div>
+<p>The original workbook projected THX-101 sales from management assumptions that we invented. Those assumptions can be useful for planning, but they are not an independently tested forecasting method. A more useful Week 2 comparison puts two statistical forecasts on equal footing against the same historical data.</p>
+<p>The workbook now has <strong>Projection A in Revenue &amp; Demand!O6</strong> and <strong>Projection B in O7</strong>. Either can select SMA (3, 6, or 12 months), EMA, ARIMA with drift, or seasonal ARIMA. A changes future sales and financial statements; B is comparison only. The legacy management assumptions remain archived for audit but are no longer a selectable baseline.</p>
+<div class="method-chips" aria-label="Forecast methods"><span>Compare any two methods</span><span>SMA 3M / 6M / 12M</span><span>EMA 3M</span><span>ARIMA + drift</span><span>Seasonal ARIMA</span></div>
 <div class="how-it-works" aria-label="Forecast integration">
 <div><strong>Historical product sales</strong> <span>· Fixed January 2024–September 2026 observations</span></div>
-<div><strong>Selected method</strong> <span>· Projects future THX-101 sales within Revenue &amp; Demand</span></div>
+<div><strong>Projection A</strong> <span>· Drives the forecast feeding the financial statements</span></div><div><strong>Projection B</strong> <span>· Selects an independent comparison forecast</span></div>
 <div><strong>Operating drivers</strong> <span>· Revenue converted to prescription fills using the modeled net price</span></div>
 <div><strong>Financial statements</strong> <span>· Updated sales, manufacturing costs, related operating results, cash flow, and balance sheet</span></div>
 </div>
-<p>The forecast controls affect future months only. That preserves our modeled historical record, avoids rewriting the previous statements, and gives us a direct way to compare statistical projections with the original business plan.</p>
+<p>Both methods preserve the historical data through September 2026. The live comparison shows monthly forecasts, their difference, and each method's holdout error. Changing B alone leaves the company's financial statements untouched.</p>
 
 <h2>Data and evaluation</h2>
 <p>I used <strong>33 months of synthetic THX-101 product sales</strong> from January 2024 through September 2026. Each method was tested using a fixed forecast origin: the first 27 months (through March 2026) were used for training, while April–September 2026 was withheld for a six-month out-of-sample comparison. The forecast horizon runs from October 2026 through September 2027.</p>
@@ -60,13 +60,13 @@
 
 <h2>Historical sales and projected revenue</h2>
 <div class="chart-frame"><svg viewBox="0 0 835 330" role="img" aria-labelledby="sales-title sales-description" style="display:block;width:100%;height:auto">
-<title id="sales-title">Historical THX-101 revenue compared with management, ARIMA and seasonal ARIMA projections</title>
-<desc id="sales-description">The monthly synthetic revenue series runs from January 2024 to September 2026 and rises to $9.86 million. By September 2027, the management plan projects $12.92 million, ARIMA with drift $13.26 million, and seasonal ARIMA $13.32 million.</desc>
+<title id="sales-title">Historical THX-101 revenue with two illustrative statistical forecasts</title>
+<desc id="sales-description">THX-101 synthetic historical sales through September 2026, followed by two example forecasts. ARIMA with drift projects $13.26 million in September 2027 and seasonal ARIMA projects $13.32 million. The workbook can compare any two methods dynamically.</desc>
 <rect x="595.4545454545455" y="26" width="201.5454545454545" height="250" fill="#f5faf8"/>
 <line x1="58" x2="797" y1="276" y2="276" stroke="#e4eaea"/><text x="44" y="280" text-anchor="end" fill="#6b7882" font-size="12">0</text><line x1="58" x2="797" y1="196" y2="196" stroke="#e4eaea"/><text x="44" y="200" text-anchor="end" fill="#6b7882" font-size="12">5</text><line x1="58" x2="797" y1="116" y2="116" stroke="#e4eaea"/><text x="44" y="120" text-anchor="end" fill="#6b7882" font-size="12">10</text><line x1="58" x2="797" y1="36" y2="36" stroke="#e4eaea"/><text x="44" y="40" text-anchor="end" fill="#6b7882" font-size="12">15</text><line x1="595.4545454545455" x2="595.4545454545455" y1="26" y2="276" stroke="#a3b1b7" stroke-dasharray="5 5"/>
 <text x="587.4545454545455" y="18" text-anchor="end" fill="#627783" font-size="11">Forecast begins</text>
 <polyline points="58.00,262.95 74.80,260.71 91.59,258.31 108.39,255.77 125.18,253.07 141.98,250.22 158.77,247.22 175.57,244.06 192.36,240.76 209.16,233.04 225.95,229.03 242.75,224.86 259.55,210.24 276.34,206.93 293.14,203.62 309.93,200.32 326.73,197.01 343.52,193.70 360.32,190.40 377.11,187.09 393.91,183.78 410.70,169.97 427.50,166.30 444.30,162.63 461.09,161.90 477.89,158.83 494.68,152.78 511.48,147.24 528.27,140.57 545.07,138.94 561.86,130.06 578.66,124.78 595.45,118.18" fill="none" stroke="#0b7f73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-<polyline points="595.45,118.18 612.25,117.31 629.05,111.86 645.84,106.22 662.64,102.48 679.43,98.64 696.23,94.70 713.02,90.70 729.82,86.62 746.61,82.42 763.41,78.14 780.20,73.78 797.00,69.31" fill="none" stroke="#b28b54" stroke-width="2.8" stroke-dasharray="7 5" stroke-linejoin="round"/>
+
 <polyline points="595.45,118.18 612.25,113.52 629.05,108.92 645.84,104.32 662.64,99.73 679.43,95.13 696.23,90.52 713.02,85.91 729.82,81.29 746.61,76.70 763.41,72.07 780.20,67.46 797.00,62.84" fill="none" stroke="#829eae" stroke-width="2.8" stroke-dasharray="2 4" stroke-linejoin="round"/>
 <polyline points="595.45,118.18 612.25,113.65 629.05,109.13 645.84,104.60 662.64,100.08 679.43,95.55 696.23,91.03 713.02,86.51 729.82,81.98 746.61,77.46 763.41,72.93 780.20,68.41 797.00,63.88" fill="none" stroke="#314b5c" stroke-width="3" stroke-linejoin="round"/>
 <circle cx="595.4545454545455" cy="118.17599999999999" r="4.4" fill="#0b7f73" stroke="#fff" stroke-width="2"/>
@@ -74,8 +74,8 @@
 <text x="790" y="45.88485600000007" text-anchor="end" fill="#314b5c" font-size="12.5" font-weight="750">$13.26M</text>
 <text x="58" y="297" text-anchor="middle" fill="#64717c" font-size="12">Jan '24</text><text x="259.54545454545456" y="297" text-anchor="middle" fill="#64717c" font-size="12">Jan '25</text><text x="461.0909090909091" y="297" text-anchor="middle" fill="#64717c" font-size="12">Jan '26</text><text x="595.4545454545455" y="297" text-anchor="middle" fill="#64717c" font-size="12">Sep '26</text><text x="797" y="297" text-anchor="middle" fill="#64717c" font-size="12">Sep '27</text><text x="58" y="12" font-size="11" fill="#64717c">Product revenue · $ millions per month</text>
 </svg>
-<div class="legend"><span><i style="background:#0b7f73"></i>Historical sales</span><span><i style="background:#314b5c"></i>ARIMA + drift</span><span><i style="background:#829eae"></i>Seasonal ARIMA</span><span><i style="background:#b28b54"></i>Management plan</span></div></div>
-<p class="chart-note">The historical period is identical for every model. Forecast lines show outputs calculated in the integrated workbook with the original management assumptions left intact. Values are THX-101 monthly product revenue—not the company's total revenue.</p>
+<div class="legend"><span><i style="background:#0b7f73"></i>Historical sales</span><span><i style="background:#314b5c"></i>ARIMA + drift</span><span><i style="background:#829eae"></i>Seasonal ARIMA</span></div></div>
+<p class="chart-note">The website illustrates ARIMA versus seasonal ARIMA using the workbook's calculated outputs. The live workbook chart and selectors in O6/O7 allow comparisons between any two methods. These are THX-101 product sales, not total company revenue.</p>
 
 <h2>Model selection: what performed best?</h2>
 <p><strong>ARIMA(0,1,0) with drift</strong> recorded the lowest six-month holdout error, <strong>3.15% MAPE</strong> (RMSE $0.344 million). Its advantage makes sense: monthly sales increased steadily, so a model that extends the average historical monthly change tracks this dataset better than a moving average that lags behind the rising level.</p>
@@ -86,8 +86,8 @@
 <p>The differenced series showed a lag-12 correlation close to zero, so there isn't strong independent evidence of a repeating annual pattern. I tested a seasonal alternative anyway, using a lag-12 relationship fitted to the differenced observations. Its <strong>3.58% MAPE</strong> was close to ARIMA's, but did not improve the six-month test result. With fewer than three annual cycles, I would not treat that as a reliable seasonal effect.</p>
 
 <h2>Business interpretation and limitations</h2>
-<p>For September 2027, the ARIMA model projects approximately <strong>$13.26 million</strong> in monthly THX-101 sales, compared with <strong>$12.92 million</strong> under our original management assumptions. The difference is modest, but it creates a measurable alternative for prescription demand, production planning, royalties, and financing needs.</p>
-<p>I tested switching the workbook from Management to ARIMA and confirmed that future sales and downstream operating calculations changed while the checked balance-sheet and cash-flow reconciliations remained at zero. I restored Management as the default after testing.</p>
+<p>In one example comparison for September 2027, ARIMA with drift projects <strong>$13,257,197</strong> in THX-101 monthly sales and seasonal ARIMA projects <strong>$13,322,605</strong>. Selecting different methods allows us to quantify changes in demand, manufacturing requirements, cash flow, and future financing needs.</p>
+<p>I verified that changing Projection B only updates the comparison, while Projection A changes forecast sales and the linked model. Historical synthetic observations stay unchanged.</p>
 <p>The main limitation is that <strong>the history itself is synthetic and follows assumptions we originally designed</strong>. ARIMA's 3.15% is a six-month holdout MAPE on that constructed series—not a claim of 96.85% real-world accuracy, nor a validated error rate for future sales. Regulatory outcomes, reimbursement, supply constraints, and competition can change revenue in ways that an extrapolation cannot predict.</p>
 <p class="chart-note">Implementation note: the selectable forecasts use native spreadsheet formulas, not VBA. The nonseasonal model applies first differences and historical drift; the seasonal alternative uses a conditional least-squares lag-12 relationship rather than a full iterative maximum-likelihood fit. ADF p-values were retained from the earlier diagnostic run and are not live spreadsheet recalculations.</p>
 </article>
@@ -108,16 +108,16 @@
 <p class="mini">¹ RMSE in millions of dollars. Shorter bars indicate lower percentage error.</p>
 </div>
 <div class="side-panel">
-<div class="eyebrow">Projected monthly sales</div><h3>September 2027</h3>
+<div class="eyebrow">Example comparison</div><h3>September 2027</h3>
 <div class="metric-strip" style="grid-template-columns:1fr">
-<div class="metric"><strong>$13.26M</strong><span>ARIMA with drift</span></div>
-<div class="metric"><strong>$12.92M</strong><span>Original management plan</span></div>
+<div class="metric"><strong>$13,257,197</strong><span>ARIMA with drift</span></div>
+<div class="metric"><strong>$13,322,605</strong><span>Seasonal ARIMA</span></div>
 </div>
 <p>Use the difference as a planning sensitivity, not a guarantee.</p>
 </div>
 <div class="side-panel">
 <h3>Workbook navigation</h3>
-<p>Open <strong>Revenue &amp; Demand</strong> and use the method dropdown in <strong>O6</strong>. The sheet also contains the model comparison, backtest, seasonal diagnostics, and forecast charts. The other financial statements and supporting schedules are retained.</p>
+<p>Open <strong>Revenue &amp; Demand</strong>. Choose <strong>Projection A in O6</strong> and <strong>Projection B in O7</strong>. Compare their whole-dollar sales projections, holdout MAPE, and lines on the live chart. Only A changes the integrated financial statements.</p>
 </div>
 </aside>
 </div>
